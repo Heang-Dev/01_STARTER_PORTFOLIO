@@ -207,3 +207,25 @@ export interface ContactResponse {
   id: number;
   created_at: string;
 }
+
+// Review form
+export interface ReviewFormData {
+  reviewable_type: 'project';
+  reviewable_id: number;
+  rating: number;
+  title?: string;
+  body: string;
+  reviewer_name: string;
+  reviewer_email: string;
+}
+
+export interface ReviewResponse {
+  id: number;
+  uuid: string;
+  rating: number;
+  title?: string;
+  body: string;
+  reviewer_name: string;
+  status: string;
+  created_at: string;
+}

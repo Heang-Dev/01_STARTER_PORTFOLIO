@@ -4,7 +4,8 @@ import type {
   Blog,
   ContactFormData,
   ContactResponse,
-  ApiResponse,
+  ReviewFormData,
+  ReviewResponse,
 } from './types';
 import mockData from '../../data/mock.json';
 
@@ -215,6 +216,42 @@ class DevFolioClient {
 
     return response.json();
   }
+
+  /**
+   * Submit a review for a project
+   * Note: In mock mode, this simulates a successful submission
+   */
+  async submitReview(data: ReviewFormData): Promise<ReviewResponse> {
+    if (this.useMock) {
+      // Simulate review submission
+      console.log('Mock review submission:', data);
+      return {
+        id: Math.floor(Math.random() * 1000),
+        uuid: `mock-${Date.now()}`,
+        rating: data.rating,
+        title: data.title,
+        body: data.body,
+        reviewer_name: data.reviewer_name,
+        status: 'pending',
+        created_at: new Date().toISOString(),
+      };
+    }
+    const url = `${API_URL}/reviews`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to submit review');
+    }
+
+    const result = await response.json();
+    return result.data ?? result;
+  }
 }
 
 // Export singleton instance
@@ -234,3 +271,5 @@ export const getSocialLinks = () => devfolio.getSocialLinks();
 export const getSettings = () => devfolio.getSettings();
 export const submitContact = (data: ContactFormData) =>
   devfolio.submitContact(data);
+export const submitReview = (data: ReviewFormData) =>
+  devfolio.submitReview(data);

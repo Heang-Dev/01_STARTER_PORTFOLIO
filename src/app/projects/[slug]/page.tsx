@@ -16,6 +16,7 @@ import { getProject, getProjects, getPortfolio } from '@/lib/devfolio';
 import { formatDate } from '@/lib/utils';
 import { Button, Badge, Card } from '@/components/ui';
 import { DetailHeader } from '@/components/layout/DetailHeader';
+import { ReviewForm } from '@/components/project/ReviewForm';
 
 interface Props {
   params: { slug: string };
@@ -223,35 +224,36 @@ export default async function ProjectPage({ params }: Props) {
             )}
 
             {/* Reviews Section */}
-            {projectReviews.length > 0 && (
-              <div className="mb-12">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-lg font-semibold flex items-center gap-2">
-                    <MessageSquare className="h-5 w-5" />
-                    Reviews
-                  </h2>
-                  {project.average_rating && (
-                    <div className="flex items-center gap-2">
-                      <div className="flex">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star
-                            key={star}
-                            className={`h-4 w-4 ${
-                              star <= Math.round(project.average_rating || 0)
-                                ? 'fill-yellow-400 text-yellow-400'
-                                : 'text-muted-foreground/30'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                      <span className="text-sm text-muted-foreground">
-                        {project.average_rating.toFixed(1)} ({project.total_reviews} reviews)
-                      </span>
+            <div className="mb-12">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-lg font-semibold flex items-center gap-2">
+                  <MessageSquare className="h-5 w-5" />
+                  Reviews
+                </h2>
+                {project.average_rating && project.average_rating > 0 && (
+                  <div className="flex items-center gap-2">
+                    <div className="flex">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                          key={star}
+                          className={`h-4 w-4 ${
+                            star <= Math.round(project.average_rating || 0)
+                              ? 'fill-yellow-400 text-yellow-400'
+                              : 'text-muted-foreground/30'
+                          }`}
+                        />
+                      ))}
                     </div>
-                  )}
-                </div>
+                    <span className="text-sm text-muted-foreground">
+                      {project.average_rating.toFixed(1)} ({project.total_reviews} reviews)
+                    </span>
+                  </div>
+                )}
+              </div>
 
-                <div className="grid gap-4">
+              {/* Existing Reviews */}
+              {projectReviews.length > 0 && (
+                <div className="grid gap-4 mb-8">
                   {projectReviews.map((review) => (
                     <Card key={review.id} className="p-4">
                       <div className="flex items-start gap-4">
@@ -285,8 +287,11 @@ export default async function ProjectPage({ params }: Props) {
                     </Card>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
+
+              {/* Review Form */}
+              <ReviewForm projectId={project.id} projectTitle={project.title} />
+            </div>
 
             {/* Navigation */}
             <div className="grid grid-cols-2 gap-4 pt-8 border-t">
