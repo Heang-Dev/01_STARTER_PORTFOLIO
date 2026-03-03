@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default theme variables - RGB values for Tailwind opacity support */
+:root {
+  --color-primary: 59 130 246;
+  --color-secondary: 30 64 175;
+  --color-accent: 245 158 11;
+  --color-background: 255 255 255;
+  --color-foreground: 31 41 55;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.dark {
+  --color-background: 15 23 42;
+  --color-foreground: 241 245 249;
+}
+
+/* Base styles */
+@layer base {
+  * {
+    border-color: rgb(var(--color-foreground) / 0.1);
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+/* Custom scrollbar */
+@layer components {
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--color-foreground) / 0.05);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-foreground) / 0.2);
+    @apply rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-foreground) / 0.3);
+  }
+}
+
+/* Animations */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Prose styles for rich text */
+.prose {
+  color: rgb(var(--color-foreground) / 0.8);
+}
+
+.prose a {
+  @apply text-primary hover:underline;
+}
+
+.prose strong {
+  @apply text-foreground font-semibold;
+}
+
+.prose code {
+  background: rgb(var(--color-foreground) / 0.05);
+  @apply px-1.5 py-0.5 rounded text-sm;
+}
+
+.prose pre {
+  background: rgb(var(--color-foreground) / 0.05);
+  @apply p-4 rounded-lg overflow-x-auto;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0;
+}
+
+.prose blockquote {
+  border-left: 4px solid rgb(var(--color-primary) / 0.3);
+  color: rgb(var(--color-foreground) / 0.7);
+  @apply pl-4 italic;
+}
+
+.prose ul {
+  @apply list-disc list-inside;
+}
+
+.prose ol {
+  @apply list-decimal list-inside;
+}
+
+.prose li {
+  @apply mb-1;
+}
+
+/* Selection */
+::selection {
+  background: rgb(var(--color-primary) / 0.2);
+  @apply text-foreground;
+}

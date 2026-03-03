@@ -1,0 +1,157 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Calendar, Clock, Eye, Heart, ArrowRight } from 'lucide-react';
+import { Card, Badge, Button } from '@/components/ui';
+import type { Blog as BlogType } from '@/lib/types';
+import { formatDate } from '@/lib/utils';
+
+interface BlogProps {
+  blogs: BlogType[];
+}
+
+export function Blog({ blogs }: BlogProps) {
+  const publishedBlogs = blogs.filter((b) => b.published);
+
+  if (publishedBlogs.length === 0) {
+    return null;
+  }
+
+  const displayBlogs = publishedBlogs.slice(0, 3);
+
+  return (
+    <section id="blog" className="py-20 md:py-32 bg-foreground/[0.02]">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+            Latest Blog Posts
+          </h2>
+          <p className="text-foreground/60 max-w-2xl mx-auto">
+            Thoughts, tutorials, and insights from my journey
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayBlogs.map((blog, index) => (
+            <motion.div
+              key={blog.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Link href={`/blog/${blog.slug}`}>
+                <Card className="group h-full flex flex-col">
+                  {/* Image */}
+                  <div className="relative aspect-video overflow-hidden">
+                    {blog.image_url ? (
+                      <Image
+                        src={blog.image_url}
+                        alt={blog.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                        <span className="text-4xl font-bold text-primary/30">
+                          {blog.title.charAt(0)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 p-6">
+                    {/* Categories */}
+                    {blog.categories && blog.categories.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {blog.categories.slice(0, 2).map((cat) => (
+                          <Badge key={cat.id} variant="primary" className="text-xs">
+                            {cat.name}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                      {blog.title}
+                    </h3>
+
+                    {blog.excerpt && (
+                      <p className="text-sm text-foreground/60 line-clamp-2 mb-4">
+                        {blog.excerpt}
+                      </p>
+                    )}
+
+                    {/* Meta */}
+                    <div className="flex items-center gap-4 text-xs text-foreground/50">
+                      {blog.published_at && (
+                        <span className="flex items-center gap-1">
+                          <Calendar className="h-3 w-3" />
+                          {formatDate(blog.published_at, { month: 'short', day: 'numeric' })}
+                        </span>
+                      )}
+                      {blog.reading_time && (
+                        <span className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {blog.reading_time} min read
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="px-6 pb-6 flex items-center justify-between">
+                    <div className="flex items-center gap-4 text-xs text-foreground/50">
+                      {blog.views_count !== undefined && (
+                        <span className="flex items-center gap-1">
+                          <Eye className="h-3 w-3" />
+                          {blog.views_count}
+                        </span>
+                      )}
+                      {blog.likes_count !== undefined && (
+                        <span className="flex items-center gap-1">
+                          <Heart className="h-3 w-3" />
+                          {blog.likes_count}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-sm text-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                      Read More
+                      <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </Card>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+
+        {publishedBlogs.length > 3 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <Link href="/blog">
+              <Button variant="outline" size="lg">
+                View All Posts
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+}
