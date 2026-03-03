@@ -22,7 +22,7 @@ export function Blog({ blogs }: BlogProps) {
   const displayBlogs = publishedBlogs.slice(0, 3);
 
   return (
-    <section id="blog" className="py-20 md:py-32 bg-muted/50">
+    <section id="blogs" className="py-20 md:py-32 bg-muted/50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,6 +56,7 @@ export function Blog({ blogs }: BlogProps) {
                       src={blog.image_url}
                       alt={blog.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (

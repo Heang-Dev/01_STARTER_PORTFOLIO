@@ -3,20 +3,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
-  ArrowLeft,
   Calendar,
   Clock,
   Eye,
   Heart,
-  Share2,
   ChevronLeft,
   ChevronRight,
+  User,
 } from 'lucide-react';
 import { getBlog, getBlogs, getPortfolio } from '@/lib/devfolio';
 import { formatDate } from '@/lib/utils';
 import { Badge, Card } from '@/components/ui';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { DetailHeader } from '@/components/layout/DetailHeader';
+import { ShareSection } from '@/components/blog/ShareSection';
 
 interface Props {
   params: { slug: string };
@@ -73,7 +72,7 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const { user, social_links = [] } = portfolio;
+  const { user } = portfolio;
   const publishedBlogs = (blogs || []).filter((b) => b.published);
 
   // Find adjacent blogs for navigation
@@ -81,21 +80,19 @@ export default async function BlogPostPage({ params }: Props) {
   const prevBlog = currentIndex > 0 ? publishedBlogs[currentIndex - 1] : null;
   const nextBlog = currentIndex < publishedBlogs.length - 1 ? publishedBlogs[currentIndex + 1] : null;
 
+  // Blog URL for sharing (will be replaced client-side)
+  const blogUrl = `${process.env.NEXT_PUBLIC_SITE_URL || ''}/blog/${params.slug}`;
+
   return (
-    <>
-      <Header user={user} socialLinks={social_links} />
+    <div className="min-h-screen flex flex-col">
+      <DetailHeader
+        userName={user.name}
+        backHref="/#blogs"
+        backLabel="Back to Blog"
+      />
 
-      <main className="pt-24 pb-20">
+      <main className="flex-1 py-8 md:py-12">
         <article className="container mx-auto px-4">
-          {/* Back Link */}
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors mb-8"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Blog
-          </Link>
-
           <div className="max-w-3xl mx-auto">
             {/* Header */}
             <header className="mb-8">
@@ -114,30 +111,52 @@ export default async function BlogPostPage({ params }: Props) {
                 {blog.title}
               </h1>
 
-              {/* Meta */}
-              <div className="flex flex-wrap items-center gap-4 text-foreground/60">
-                {blog.published_at && (
-                  <span className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    {formatDate(blog.published_at)}
-                  </span>
-                )}
-                {blog.reading_time && (
-                  <span className="flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    {blog.reading_time} min read
-                  </span>
-                )}
+              {/* Author & Meta */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 overflow-hidden">
+                  {user.image_url ? (
+                    <Image
+                      src={user.image_url}
+                      alt={user.name}
+                      width={48}
+                      height={48}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <User className="h-6 w-6 text-primary" />
+                  )}
+                </div>
+                <div>
+                  <p className="font-medium">{user.name}</p>
+                  <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                    {blog.published_at && (
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="h-3.5 w-3.5" />
+                        {formatDate(blog.published_at)}
+                      </span>
+                    )}
+                    {blog.reading_time && (
+                      <span className="flex items-center gap-1.5">
+                        <Clock className="h-3.5 w-3.5" />
+                        {blog.reading_time} min read
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Stats */}
+              <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 {blog.views_count !== undefined && (
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-1.5">
                     <Eye className="h-4 w-4" />
-                    {blog.views_count} views
+                    {blog.views_count.toLocaleString()} views
                   </span>
                 )}
                 {blog.likes_count !== undefined && (
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-1.5">
                     <Heart className="h-4 w-4" />
-                    {blog.likes_count} likes
+                    {blog.likes_count.toLocaleString()} likes
                   </span>
                 )}
               </div>
@@ -145,11 +164,12 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* Featured Image */}
             {blog.image_url && (
-              <div className="relative aspect-video rounded-xl overflow-hidden mb-10">
+              <div className="relative aspect-video rounded-xl overflow-hidden mb-10 border">
                 <Image
                   src={blog.image_url}
                   alt={blog.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 768px"
                   className="object-cover"
                   priority
                 />
@@ -159,18 +179,18 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Content */}
             {blog.content && (
               <div
-                className="prose prose-lg dark:prose-invert max-w-none mb-12"
+                className="prose prose-lg dark:prose-invert max-w-none mb-12 prose-headings:font-heading prose-a:text-primary prose-img:rounded-lg"
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               />
             )}
 
             {/* Tags */}
             {blog.tags && blog.tags.length > 0 && (
-              <div className="mb-12">
-                <h3 className="text-sm font-semibold text-foreground/60 mb-3">Tags</h3>
+              <div className="mb-8">
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                   {blog.tags.map((tag) => (
-                    <Badge key={tag} variant="outline">
+                    <Badge key={tag} variant="outline" className="text-sm">
                       #{tag}
                     </Badge>
                   ))}
@@ -178,48 +198,23 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             )}
 
-            {/* Share */}
-            <div className="flex items-center gap-4 py-8 border-y border-foreground/10 mb-8">
-              <span className="text-foreground/60 flex items-center gap-2">
-                <Share2 className="h-4 w-4" />
-                Share this post
-              </span>
-              <div className="flex items-center gap-2">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
-                  aria-label="Share on Twitter"
-                >
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </a>
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
-                  aria-label="Share on LinkedIn"
-                >
-                  <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
+            {/* Share Section */}
+            <ShareSection url={blogUrl} title={blog.title} />
 
             {/* Navigation */}
-            <div className="flex items-center justify-between">
+            <div className="grid grid-cols-2 gap-4 pt-8 border-t">
               {prevBlog ? (
-                <Link href={`/blog/${prevBlog.slug}`}>
-                  <Card className="p-4 hover:border-primary/30 max-w-xs">
+                <Link href={`/blog/${prevBlog.slug}`} className="group">
+                  <Card className="p-4 h-full transition-all hover:border-primary/50 hover:shadow-md">
                     <div className="flex items-center gap-3">
-                      <ChevronLeft className="h-5 w-5 text-foreground/40 shrink-0" />
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted group-hover:bg-primary/10 transition-colors">
+                        <ChevronLeft className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
                       <div className="min-w-0">
-                        <p className="text-xs text-foreground/50 mb-1">Previous</p>
-                        <p className="font-medium truncate">{prevBlog.title}</p>
+                        <p className="text-xs text-muted-foreground mb-0.5">Previous Article</p>
+                        <p className="font-medium truncate group-hover:text-primary transition-colors">
+                          {prevBlog.title}
+                        </p>
                       </div>
                     </div>
                   </Card>
@@ -228,25 +223,41 @@ export default async function BlogPostPage({ params }: Props) {
                 <div />
               )}
 
-              {nextBlog && (
-                <Link href={`/blog/${nextBlog.slug}`}>
-                  <Card className="p-4 hover:border-primary/30 max-w-xs">
-                    <div className="flex items-center gap-3 text-right">
+              {nextBlog ? (
+                <Link href={`/blog/${nextBlog.slug}`} className="group">
+                  <Card className="p-4 h-full transition-all hover:border-primary/50 hover:shadow-md">
+                    <div className="flex items-center justify-end gap-3 text-right">
                       <div className="min-w-0">
-                        <p className="text-xs text-foreground/50 mb-1">Next</p>
-                        <p className="font-medium truncate">{nextBlog.title}</p>
+                        <p className="text-xs text-muted-foreground mb-0.5">Next Article</p>
+                        <p className="font-medium truncate group-hover:text-primary transition-colors">
+                          {nextBlog.title}
+                        </p>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-foreground/40 shrink-0" />
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted group-hover:bg-primary/10 transition-colors">
+                        <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
                     </div>
                   </Card>
                 </Link>
+              ) : (
+                <div />
               )}
             </div>
           </div>
         </article>
       </main>
 
-      <Footer user={user} socialLinks={social_links} />
-    </>
+      {/* Simple Footer */}
+      <footer className="border-t py-6">
+        <div className="container mx-auto px-4 text-center">
+          <Link
+            href="/"
+            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            &larr; Back to {user.name}&apos;s Portfolio
+          </Link>
+        </div>
+      </footer>
+    </div>
   );
 }

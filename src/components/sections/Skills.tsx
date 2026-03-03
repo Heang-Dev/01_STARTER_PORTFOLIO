@@ -77,6 +77,7 @@ export function Skills({ skills }: SkillsProps) {
                                 src={skill.icon_url}
                                 alt={skill.name}
                                 fill
+                                sizes="40px"
                                 className="object-contain"
                               />
                             </div>

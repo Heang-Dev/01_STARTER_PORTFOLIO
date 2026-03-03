@@ -95,6 +95,7 @@ export function About({ user, socialLinks = [] }: AboutProps) {
                       src={image}
                       alt={`Gallery ${index + 1}`}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover"
                     />
                   </div>
@@ -106,6 +107,7 @@ export function About({ user, socialLinks = [] }: AboutProps) {
                   src={user.image_url}
                   alt={user.name}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 400px"
                   className="object-cover"
                 />
               </div>

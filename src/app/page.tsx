@@ -113,14 +113,10 @@ DEVFOLIO_USER_UUID=your-uuid`}
       <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
 
       {/* Header */}
-      <Header user={user} socialLinks={social_links} />
+      <Header user={user} settings={settings} />
 
       {/* Main Content */}
       <main>
-        {/* Debug indicator */}
-        <div className="fixed bottom-4 right-4 z-50 bg-primary text-primary-foreground px-3 py-1.5 text-xs rounded-full shadow-lg">
-          {projects.length} projects | {skills.length} skills
-        </div>
         {sectionsOrder.map((section) => sectionComponents[section])}
       </main>
 
