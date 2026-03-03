@@ -33,15 +33,31 @@ npm install
 
 ### 2. Configure Environment
 
-Copy the example environment file and add your DevFolio credentials:
+Copy the example environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-Edit `.env` and add your API key:
+**Option A: Mock Data Mode (Recommended for Development)**
+
+Start immediately with sample data - no API key needed:
 
 ```env
+DEVFOLIO_USE_MOCK=true
+```
+
+This uses the built-in mock data in `data/mock.json` to preview the template.
+
+**Option B: Live API Mode (For Production)**
+
+Connect to your DevFolio account:
+
+```env
+# Comment out or remove DEVFOLIO_USE_MOCK
+# DEVFOLIO_USE_MOCK=true
+
+# Add your API key
 DEVFOLIO_API_KEY=your-api-key-here
 DEVFOLIO_API_URL=https://devfolio.com/api/v1
 ```
@@ -55,6 +71,22 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to see your portfolio!
+
+## Mock Data
+
+This template includes comprehensive mock data for development and testing. The mock data is located at `data/mock.json` and includes:
+
+- User profile with all fields populated
+- 6 sample projects with descriptions, skills, and categories
+- 12 skills organized by category
+- 4 work experiences
+- 3 professional certificates
+- 4 blog posts with full content
+- Social links
+- 6 testimonial reviews
+- Default portfolio settings
+
+You can modify `data/mock.json` to customize the preview data or download fresh mock data from DevFolio's API Keys page.
 
 ## Deployment
 

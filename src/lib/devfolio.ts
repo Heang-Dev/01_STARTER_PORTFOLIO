@@ -6,16 +6,20 @@ import type {
   ContactResponse,
   ApiResponse,
 } from './types';
+import mockData from '../../data/mock.json';
 
 const API_URL = process.env.DEVFOLIO_API_URL || 'https://devfolio.com/api/v1';
 const API_KEY = process.env.DEVFOLIO_API_KEY;
 const USER_UUID = process.env.DEVFOLIO_USER_UUID;
+const USE_MOCK = process.env.DEVFOLIO_USE_MOCK === 'true';
 
 class DevFolioClient {
   private headers: HeadersInit;
   private useApiKey: boolean;
+  private useMock: boolean;
 
   constructor() {
+    this.useMock = USE_MOCK;
     this.useApiKey = !!API_KEY;
     this.headers = {
       'Content-Type': 'application/json',
@@ -65,6 +69,9 @@ class DevFolioClient {
    * Fetch complete portfolio data in one request
    */
   async getPortfolio(): Promise<PortfolioData> {
+    if (this.useMock) {
+      return mockData as unknown as PortfolioData;
+    }
     const endpoint = this.useApiKey ? '' : '/portfolio';
     return this.fetch<PortfolioData>(endpoint);
   }
@@ -73,6 +80,9 @@ class DevFolioClient {
    * Fetch user profile
    */
   async getProfile() {
+    if (this.useMock) {
+      return mockData.user;
+    }
     return this.fetch('/profile');
   }
 
@@ -80,6 +90,9 @@ class DevFolioClient {
    * Fetch all projects
    */
   async getProjects(): Promise<Project[]> {
+    if (this.useMock) {
+      return mockData.projects as unknown as Project[];
+    }
     return this.fetch<Project[]>('/projects');
   }
 
@@ -87,6 +100,13 @@ class DevFolioClient {
    * Fetch a single project by slug
    */
   async getProject(slug: string): Promise<Project> {
+    if (this.useMock) {
+      const project = mockData.projects.find((p) => p.slug === slug);
+      if (!project) {
+        throw new Error(`Project not found: ${slug}`);
+      }
+      return project as unknown as Project;
+    }
     return this.fetch<Project>(`/projects/${slug}`);
   }
 
@@ -94,6 +114,9 @@ class DevFolioClient {
    * Fetch all skills
    */
   async getSkills() {
+    if (this.useMock) {
+      return mockData.skills;
+    }
     return this.fetch('/skills');
   }
 
@@ -101,6 +124,9 @@ class DevFolioClient {
    * Fetch all experiences
    */
   async getExperiences() {
+    if (this.useMock) {
+      return mockData.experiences;
+    }
     return this.fetch('/experiences');
   }
 
@@ -108,6 +134,9 @@ class DevFolioClient {
    * Fetch all certificates
    */
   async getCertificates() {
+    if (this.useMock) {
+      return mockData.certificates;
+    }
     return this.fetch('/certificates');
   }
 
@@ -115,6 +144,9 @@ class DevFolioClient {
    * Fetch all blog posts
    */
   async getBlogs(): Promise<Blog[]> {
+    if (this.useMock) {
+      return mockData.blogs as unknown as Blog[];
+    }
     return this.fetch<Blog[]>('/blogs');
   }
 
@@ -122,6 +154,13 @@ class DevFolioClient {
    * Fetch a single blog post by slug
    */
   async getBlog(slug: string): Promise<Blog> {
+    if (this.useMock) {
+      const blog = mockData.blogs.find((b) => b.slug === slug);
+      if (!blog) {
+        throw new Error(`Blog not found: ${slug}`);
+      }
+      return blog as unknown as Blog;
+    }
     return this.fetch<Blog>(`/blogs/${slug}`);
   }
 
@@ -129,6 +168,9 @@ class DevFolioClient {
    * Fetch social links
    */
   async getSocialLinks() {
+    if (this.useMock) {
+      return mockData.social_links;
+    }
     return this.fetch('/social-links');
   }
 
@@ -136,13 +178,25 @@ class DevFolioClient {
    * Fetch portfolio settings
    */
   async getSettings() {
+    if (this.useMock) {
+      return mockData.settings;
+    }
     return this.fetch('/settings');
   }
 
   /**
    * Submit contact form
+   * Note: In mock mode, this simulates a successful submission
    */
   async submitContact(data: ContactFormData): Promise<ContactResponse> {
+    if (this.useMock) {
+      // Simulate contact form submission
+      console.log('Mock contact form submission:', data);
+      return {
+        id: Math.floor(Math.random() * 1000),
+        created_at: new Date().toISOString(),
+      };
+    }
     const url = `${API_URL}/contact`;
 
     const response = await fetch(url, {

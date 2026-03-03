@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ExternalLink, Github, Star, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardFooter, Badge, Button } from '@/components/ui';
 import type { Project } from '@/lib/types';
+import { stripHtml, truncate } from '@/lib/utils';
 
 interface ProjectsProps {
   projects: Project[];
@@ -80,12 +81,9 @@ export function Projects({ projects }: ProjectsProps) {
                   </h3>
 
                   {project.description && (
-                    <p
-                      className="text-sm text-muted-foreground line-clamp-2 mb-4"
-                      dangerouslySetInnerHTML={{
-                        __html: project.description.slice(0, 150),
-                      }}
-                    />
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                      {truncate(stripHtml(project.description), 150)}
+                    </p>
                   )}
 
                   {/* Skills */}
@@ -153,13 +151,15 @@ export function Projects({ projects }: ProjectsProps) {
                       </a>
                     </Button>
                   )}
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="ml-auto text-sm text-primary hover:underline flex items-center gap-1 before:absolute before:inset-0 before:z-0"
-                  >
-                    View Details
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  {(project.slug || project.uuid) && (
+                    <Link
+                      href={`/projects/${project.slug || project.uuid}`}
+                      className="ml-auto text-sm text-primary hover:underline flex items-center gap-1 before:absolute before:inset-0 before:z-0"
+                    >
+                      View Details
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  )}
                 </CardFooter>
               </Card>
             </motion.div>

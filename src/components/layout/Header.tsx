@@ -4,7 +4,23 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
-import { Menu, X, Sun, Moon, Github, Linkedin, Twitter } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Sun,
+  Moon,
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+  Globe,
+  Instagram,
+  Youtube,
+  Facebook,
+  Dribbble,
+  Figma,
+  Link as LinkIcon
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button, Separator } from '@/components/ui';
 import type { User, SocialLink } from '@/lib/types';
@@ -15,26 +31,48 @@ interface HeaderProps {
 }
 
 const navItems = [
-  { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#blog', label: 'Blog' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#about', label: 'About', sectionId: 'about' },
+  { href: '#projects', label: 'Projects', sectionId: 'projects' },
+  { href: '#skills', label: 'Skills', sectionId: 'skills' },
+  { href: '#experience', label: 'Experience', sectionId: 'experience' },
+  { href: '#blog', label: 'Blog', sectionId: 'blog' },
+  { href: '#contact', label: 'Contact', sectionId: 'contact' },
 ];
 
 export function Header({ user, socialLinks = [] }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Detect active section
+      const sections = navItems.map(item => item.sectionId);
+      let currentSection = '';
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Section is active if it's in the top half of the viewport
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            currentSection = sectionId;
+            break;
+          }
+        }
+      }
+
+      setActiveSection(currentSection);
     };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -45,9 +83,27 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
       case 'linkedin':
         return <Linkedin className="h-5 w-5" />;
       case 'twitter':
+      case 'x':
         return <Twitter className="h-5 w-5" />;
+      case 'email':
+      case 'mail':
+        return <Mail className="h-5 w-5" />;
+      case 'website':
+      case 'web':
+      case 'portfolio':
+        return <Globe className="h-5 w-5" />;
+      case 'instagram':
+        return <Instagram className="h-5 w-5" />;
+      case 'youtube':
+        return <Youtube className="h-5 w-5" />;
+      case 'facebook':
+        return <Facebook className="h-5 w-5" />;
+      case 'dribbble':
+        return <Dribbble className="h-5 w-5" />;
+      case 'figma':
+        return <Figma className="h-5 w-5" />;
       default:
-        return null;
+        return <LinkIcon className="h-5 w-5" />;
     }
   };
 
@@ -77,9 +133,21 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    className={cn(
+                      'text-sm font-medium transition-colors relative',
+                      activeSection === item.sectionId
+                        ? 'text-primary'
+                        : 'text-muted-foreground hover:text-foreground'
+                    )}
                   >
                     {item.label}
+                    {activeSection === item.sectionId && (
+                      <motion.span
+                        layoutId="activeSection"
+                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
                   </a>
                 </li>
               ))}
@@ -154,7 +222,12 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
                   <a
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-2 px-3 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+                    className={cn(
+                      'block py-2 px-3 rounded-md transition-colors',
+                      activeSection === item.sectionId
+                        ? 'text-primary bg-primary/10 font-medium'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                    )}
                   >
                     {item.label}
                   </a>

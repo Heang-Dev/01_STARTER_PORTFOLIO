@@ -1,0 +1,777 @@
+{
+    "user": {
+        "id": 1,
+        "uuid": "mock-user-uuid-12345-67890",
+        "name": "Alex Johnson",
+        "email": "alex@example.com",
+        "username": "alexjohnson",
+        "slug": "alex-johnson",
+        "bio": "Full-stack developer passionate about building scalable web applications and creating exceptional user experiences. With 5+ years of experience in React, Node.js, and cloud technologies, I specialize in transforming complex problems into elegant solutions. Currently focused on AI-powered applications and modern web architectures.",
+        "phone": "+1 (555) 123-4567",
+        "location": "San Francisco, CA",
+        "timezone": "America/Los_Angeles",
+        "role": "user",
+        "account_type": "pro",
+        "image_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+        "portfolio_gallery": [],
+        "profile_completion": 95,
+        "github_url": "https://github.com/alexjohnson",
+        "linkedin_url": "https://linkedin.com/in/alexjohnson",
+        "twitter_url": "https://twitter.com/alexjohnson",
+        "website_url": "https://alexjohnson.dev",
+        "meta_title": "Alex Johnson | Full-Stack Developer",
+        "meta_description": "Portfolio of Alex Johnson - Full-stack developer specializing in React, Node.js, and cloud technologies. Building scalable web applications.",
+        "created_at": "2023-01-15T00:00:00Z"
+    },
+    "projects": [
+        {
+            "id": 1,
+            "uuid": "proj-001-ecommerce",
+            "title": "E-Commerce Platform",
+            "slug": "e-commerce-platform",
+            "description": "<p>A modern, full-featured e-commerce platform built with Next.js 14, featuring real-time inventory management, Stripe payment integration, and an AI-powered product recommendation engine.</p><h3>Key Features</h3><ul><li>Server-side rendering for optimal SEO</li><li>Real-time inventory tracking with WebSocket updates</li><li>AI-powered product recommendations</li><li>Multi-currency and multi-language support</li><li>Advanced analytics dashboard</li></ul><p>The platform handles over 10,000 daily active users with 99.9% uptime.</p>",
+            "github_url": "https://github.com/alexjohnson/ecommerce-platform",
+            "live_url": "https://shop.alexjohnson.dev",
+            "image_url": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
+            "portfolio_gallery": [
+                "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
+                "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop"
+            ],
+            "qr_code_url": null,
+            "public_url": "https://devfolio.com/p/e-commerce-platform",
+            "status": true,
+            "feature": true,
+            "average_rating": 4.8,
+            "total_reviews": 24,
+            "categories": [
+                {
+                    "id": 1,
+                    "name": "Web Development",
+                    "slug": "web-development"
+                },
+                {
+                    "id": 2,
+                    "name": "E-Commerce",
+                    "slug": "e-commerce"
+                }
+            ],
+            "skills": [
+                {
+                    "id": 1,
+                    "name": "Next.js",
+                    "proficiency_level": 95,
+                    "icon_url": null
+                },
+                {
+                    "id": 2,
+                    "name": "TypeScript",
+                    "proficiency_level": 90,
+                    "icon_url": null
+                },
+                {
+                    "id": 3,
+                    "name": "Stripe",
+                    "proficiency_level": 85,
+                    "icon_url": null
+                },
+                {
+                    "id": 4,
+                    "name": "PostgreSQL",
+                    "proficiency_level": 88,
+                    "icon_url": null
+                }
+            ],
+            "created_at": "2024-06-15T00:00:00Z"
+        },
+        {
+            "id": 2,
+            "uuid": "proj-002-taskflow",
+            "title": "TaskFlow - Project Management",
+            "slug": "taskflow-project-management",
+            "description": "<p>A collaborative project management tool designed for remote teams. Features include real-time collaboration, Kanban boards, time tracking, and integrations with popular tools like Slack and GitHub.</p><h3>Technical Highlights</h3><ul><li>Real-time collaboration using WebSockets</li><li>Drag-and-drop Kanban boards</li><li>Automated workflow triggers</li><li>Custom reporting and analytics</li></ul>",
+            "github_url": "https://github.com/alexjohnson/taskflow",
+            "live_url": "https://taskflow.alexjohnson.dev",
+            "image_url": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=600&fit=crop",
+            "portfolio_gallery": [],
+            "qr_code_url": null,
+            "public_url": "https://devfolio.com/p/taskflow",
+            "status": true,
+            "feature": true,
+            "average_rating": 4.6,
+            "total_reviews": 18,
+            "categories": [
+                {
+                    "id": 1,
+                    "name": "Web Development",
+                    "slug": "web-development"
+                },
+                {
+                    "id": 3,
+                    "name": "SaaS",
+                    "slug": "saas"
+                }
+            ],
+            "skills": [
+                {
+                    "id": 5,
+                    "name": "React",
+                    "proficiency_level": 95,
+                    "icon_url": null
+                },
+                {
+                    "id": 6,
+                    "name": "Node.js",
+                    "proficiency_level": 90,
+                    "icon_url": null
+                },
+                {
+                    "id": 7,
+                    "name": "Socket.io",
+                    "proficiency_level": 85,
+                    "icon_url": null
+                },
+                {
+                    "id": 8,
+                    "name": "MongoDB",
+                    "proficiency_level": 82,
+                    "icon_url": null
+                }
+            ],
+            "created_at": "2024-04-20T00:00:00Z"
+        },
+        {
+            "id": 3,
+            "uuid": "proj-003-healthtrack",
+            "title": "HealthTrack Mobile App",
+            "slug": "healthtrack-mobile-app",
+            "description": "<p>A cross-platform health and fitness tracking application built with React Native. Features include workout logging, nutrition tracking, sleep analysis, and integration with wearable devices.</p><h3>Features</h3><ul><li>Cross-platform (iOS & Android)</li><li>Wearable device integration</li><li>AI-powered health insights</li><li>Social fitness challenges</li></ul>",
+            "github_url": "https://github.com/alexjohnson/healthtrack",
+            "live_url": "https://apps.apple.com/healthtrack",
+            "image_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
+            "portfolio_gallery": [],
+            "qr_code_url": null,
+            "public_url": "https://devfolio.com/p/healthtrack",
+            "status": true,
+            "feature": true,
+            "average_rating": 4.9,
+            "total_reviews": 156,
+            "categories": [
+                {
+                    "id": 4,
+                    "name": "Mobile Development",
+                    "slug": "mobile-development"
+                },
+                {
+                    "id": 5,
+                    "name": "Health & Fitness",
+                    "slug": "health-fitness"
+                }
+            ],
+            "skills": [
+                {
+                    "id": 9,
+                    "name": "React Native",
+                    "proficiency_level": 92,
+                    "icon_url": null
+                },
+                {
+                    "id": 2,
+                    "name": "TypeScript",
+                    "proficiency_level": 90,
+                    "icon_url": null
+                },
+                {
+                    "id": 10,
+                    "name": "Firebase",
+                    "proficiency_level": 88,
+                    "icon_url": null
+                }
+            ],
+            "created_at": "2024-02-10T00:00:00Z"
+        },
+        {
+            "id": 4,
+            "uuid": "proj-004-aiwriter",
+            "title": "AI Content Writer",
+            "slug": "ai-content-writer",
+            "description": "<p>An AI-powered content generation platform that helps marketers and content creators produce high-quality blog posts, social media content, and marketing copy. Built with OpenAI's GPT-4 API.</p>",
+            "github_url": null,
+            "live_url": "https://aiwriter.alexjohnson.dev",
+            "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop",
+            "portfolio_gallery": [],
+            "qr_code_url": null,
+            "public_url": "https://devfolio.com/p/aiwriter",
+            "status": true,
+            "feature": false,
+            "average_rating": 4.7,
+            "total_reviews": 42,
+            "categories": [
+                {
+                    "id": 6,
+                    "name": "AI/ML",
+                    "slug": "ai-ml"
+                },
+                {
+                    "id": 3,
+                    "name": "SaaS",
+                    "slug": "saas"
+                }
+            ],
+            "skills": [
+                {
+                    "id": 11,
+                    "name": "Python",
+                    "proficiency_level": 85,
+                    "icon_url": null
+                },
+                {
+                    "id": 12,
+                    "name": "OpenAI API",
+                    "proficiency_level": 90,
+                    "icon_url": null
+                },
+                {
+                    "id": 1,
+                    "name": "Next.js",
+                    "proficiency_level": 95,
+                    "icon_url": null
+                }
+            ],
+            "created_at": "2024-01-05T00:00:00Z"
+        },
+        {
+            "id": 5,
+            "uuid": "proj-005-devtools",
+            "title": "DevTools CLI",
+            "slug": "devtools-cli",
+            "description": "<p>A comprehensive command-line toolkit for developers featuring project scaffolding, code generation, and automated deployment scripts. Supports multiple frameworks and cloud providers.</p>",
+            "github_url": "https://github.com/alexjohnson/devtools-cli",
+            "live_url": "https://npmjs.com/package/devtools-cli",
+            "image_url": "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=800&h=600&fit=crop",
+            "portfolio_gallery": [],
+            "qr_code_url": null,
+            "public_url": "https://devfolio.com/p/devtools-cli",
+            "status": true,
+            "feature": false,
+            "average_rating": 4.5,
+            "total_reviews": 89,
+            "categories": [
+                {
+                    "id": 7,
+                    "name": "Developer Tools",
+                    "slug": "developer-tools"
+                },
+                {
+                    "id": 8,
+                    "name": "Open Source",
+                    "slug": "open-source"
+                }
+            ],
+            "skills": [
+                {
+                    "id": 6,
+                    "name": "Node.js",
+                    "proficiency_level": 90,
+                    "icon_url": null
+                },
+                {
+                    "id": 2,
+                    "name": "TypeScript",
+                    "proficiency_level": 90,
+                    "icon_url": null
+                },
+                {
+                    "id": 13,
+                    "name": "CLI Development",
+                    "proficiency_level": 88,
+                    "icon_url": null
+                }
+            ],
+            "created_at": "2023-11-20T00:00:00Z"
+        },
+        {
+            "id": 6,
+            "uuid": "proj-006-portfolio",
+            "title": "Portfolio Template System",
+            "slug": "portfolio-template-system",
+            "description": "<p>A dynamic portfolio template system that connects to the DevFolio API. Features multiple themes, dark mode, and seamless integration with the DevFolio platform for automatic content updates.</p>",
+            "github_url": "https://github.com/alexjohnson/portfolio-templates",
+            "live_url": "https://alexjohnson.dev",
+            "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+            "portfolio_gallery": [],
+            "qr_code_url": null,
+            "public_url": "https://devfolio.com/p/portfolio-templates",
+            "status": true,
+            "feature": false,
+            "average_rating": 4.8,
+            "total_reviews": 35,
+            "categories": [
+                {
+                    "id": 1,
+                    "name": "Web Development",
+                    "slug": "web-development"
+                },
+                {
+                    "id": 8,
+                    "name": "Open Source",
+                    "slug": "open-source"
+                }
+            ],
+            "skills": [
+                {
+                    "id": 1,
+                    "name": "Next.js",
+                    "proficiency_level": 95,
+                    "icon_url": null
+                },
+                {
+                    "id": 14,
+                    "name": "Tailwind CSS",
+                    "proficiency_level": 92,
+                    "icon_url": null
+                },
+                {
+                    "id": 15,
+                    "name": "Framer Motion",
+                    "proficiency_level": 85,
+                    "icon_url": null
+                }
+            ],
+            "created_at": "2023-09-15T00:00:00Z"
+        }
+    ],
+    "skills": [
+        {
+            "id": 1,
+            "name": "Next.js",
+            "category": "Frontend",
+            "proficiency_level": 95,
+            "color_code": "#000000",
+            "icon_url": null
+        },
+        {
+            "id": 5,
+            "name": "React",
+            "category": "Frontend",
+            "proficiency_level": 95,
+            "color_code": "#61DAFB",
+            "icon_url": null
+        },
+        {
+            "id": 2,
+            "name": "TypeScript",
+            "category": "Language",
+            "proficiency_level": 90,
+            "color_code": "#3178C6",
+            "icon_url": null
+        },
+        {
+            "id": 14,
+            "name": "Tailwind CSS",
+            "category": "Frontend",
+            "proficiency_level": 92,
+            "color_code": "#06B6D4",
+            "icon_url": null
+        },
+        {
+            "id": 6,
+            "name": "Node.js",
+            "category": "Backend",
+            "proficiency_level": 90,
+            "color_code": "#339933",
+            "icon_url": null
+        },
+        {
+            "id": 11,
+            "name": "Python",
+            "category": "Language",
+            "proficiency_level": 85,
+            "color_code": "#3776AB",
+            "icon_url": null
+        },
+        {
+            "id": 4,
+            "name": "PostgreSQL",
+            "category": "Database",
+            "proficiency_level": 88,
+            "color_code": "#4169E1",
+            "icon_url": null
+        },
+        {
+            "id": 8,
+            "name": "MongoDB",
+            "category": "Database",
+            "proficiency_level": 82,
+            "color_code": "#47A248",
+            "icon_url": null
+        },
+        {
+            "id": 16,
+            "name": "AWS",
+            "category": "DevOps",
+            "proficiency_level": 85,
+            "color_code": "#FF9900",
+            "icon_url": null
+        },
+        {
+            "id": 17,
+            "name": "Docker",
+            "category": "DevOps",
+            "proficiency_level": 88,
+            "color_code": "#2496ED",
+            "icon_url": null
+        },
+        {
+            "id": 9,
+            "name": "React Native",
+            "category": "Mobile",
+            "proficiency_level": 92,
+            "color_url": "#61DAFB",
+            "icon_url": null
+        },
+        {
+            "id": 18,
+            "name": "GraphQL",
+            "category": "Backend",
+            "proficiency_level": 85,
+            "color_code": "#E10098",
+            "icon_url": null
+        }
+    ],
+    "experiences": [
+        {
+            "id": 1,
+            "uuid": "exp-001-techcorp",
+            "company": "TechCorp Inc.",
+            "position": "Senior Full-Stack Developer",
+            "description": "<p>Leading development of enterprise-scale web applications serving millions of users. Key responsibilities include:</p><ul><li>Architecting and implementing microservices infrastructure</li><li>Mentoring junior developers and conducting code reviews</li><li>Driving adoption of modern development practices</li><li>Collaborating with product teams on feature planning</li></ul><p>Achievements: Reduced page load times by 40%, increased test coverage to 85%.</p>",
+            "start_date": "2022-03-01",
+            "end_date": null,
+            "current": true
+        },
+        {
+            "id": 2,
+            "uuid": "exp-002-startupxyz",
+            "company": "StartupXYZ",
+            "position": "Full-Stack Developer",
+            "description": "<p>Built and maintained multiple customer-facing applications from scratch. Worked in a fast-paced startup environment with rapid iteration cycles.</p><ul><li>Developed the core product using React and Node.js</li><li>Implemented CI/CD pipelines with GitHub Actions</li><li>Integrated third-party APIs (Stripe, Twilio, SendGrid)</li></ul>",
+            "start_date": "2020-06-01",
+            "end_date": "2022-02-28",
+            "current": false
+        },
+        {
+            "id": 3,
+            "uuid": "exp-003-webagency",
+            "company": "Digital Web Agency",
+            "position": "Frontend Developer",
+            "description": "<p>Created responsive, accessible websites for diverse clients across various industries.</p><ul><li>Built 20+ client websites using modern frameworks</li><li>Ensured WCAG 2.1 compliance for accessibility</li><li>Optimized websites for SEO and performance</li></ul>",
+            "start_date": "2019-01-15",
+            "end_date": "2020-05-31",
+            "current": false
+        },
+        {
+            "id": 4,
+            "uuid": "exp-004-freelance",
+            "company": "Freelance",
+            "position": "Web Developer",
+            "description": "<p>Started my career as a freelance web developer, building websites and small applications for local businesses.</p><ul><li>Completed 30+ projects for various clients</li><li>Managed client relationships and project timelines</li><li>Built a strong portfolio and professional network</li></ul>",
+            "start_date": "2018-01-01",
+            "end_date": "2019-01-14",
+            "current": false
+        }
+    ],
+    "certificates": [
+        {
+            "id": 1,
+            "uuid": "cert-001-aws",
+            "title": "AWS Solutions Architect - Professional",
+            "issuer": "Amazon Web Services",
+            "earned_date": "2023-06-15",
+            "expiry_date": "2026-06-15",
+            "credential_url": "https://www.credly.com/badges/aws-solutions-architect",
+            "image_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop"
+        },
+        {
+            "id": 2,
+            "uuid": "cert-002-google",
+            "title": "Google Cloud Professional Developer",
+            "issuer": "Google Cloud",
+            "earned_date": "2023-09-20",
+            "expiry_date": "2025-09-20",
+            "credential_url": "https://www.credential.net/google-cloud-developer",
+            "image_url": "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=400&h=300&fit=crop"
+        },
+        {
+            "id": 3,
+            "uuid": "cert-003-meta",
+            "title": "Meta Front-End Developer Professional Certificate",
+            "issuer": "Meta",
+            "earned_date": "2023-03-10",
+            "expiry_date": null,
+            "credential_url": "https://www.coursera.org/account/accomplishments/meta-frontend",
+            "image_url": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=300&fit=crop"
+        }
+    ],
+    "blogs": [
+        {
+            "id": 1,
+            "uuid": "blog-001-nextjs-performance",
+            "title": "Optimizing Next.js Applications for Maximum Performance",
+            "slug": "optimizing-nextjs-performance",
+            "content": "<p>Performance is crucial for modern web applications. In this comprehensive guide, I'll share the techniques I've learned while building high-traffic Next.js applications.</p><h2>1. Image Optimization</h2><p>Next.js provides built-in image optimization through the Image component. Always use it instead of regular img tags:</p><pre><code>import Image from 'next/image'\n\nexport function Hero() {\n  return (\n    &lt;Image\n      src=\"/hero.jpg\"\n      alt=\"Hero image\"\n      width={1200}\n      height={600}\n      priority\n    /&gt;\n  )\n}</code></pre><h2>2. Code Splitting</h2><p>Leverage dynamic imports to reduce initial bundle size...</p><h2>3. Server Components</h2><p>With Next.js 14's App Router, Server Components are the default. This means less JavaScript sent to the client...</p><h2>Conclusion</h2><p>By implementing these optimizations, we achieved a 40% improvement in Lighthouse scores and significantly better user experience.</p>",
+            "excerpt": "Learn how to optimize your Next.js applications for maximum performance with image optimization, code splitting, and Server Components.",
+            "image_url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop",
+            "published": true,
+            "published_at": "2024-02-15T10:00:00Z",
+            "views_count": 2450,
+            "likes_count": 128,
+            "reading_time": 8,
+            "categories": [
+                {
+                    "id": 1,
+                    "name": "Web Development",
+                    "slug": "web-development"
+                }
+            ],
+            "tags": [
+                "nextjs",
+                "performance",
+                "react",
+                "optimization"
+            ]
+        },
+        {
+            "id": 2,
+            "uuid": "blog-002-typescript-tips",
+            "title": "10 TypeScript Tips That Will Make You a Better Developer",
+            "slug": "typescript-tips-better-developer",
+            "content": "<p>TypeScript has become essential for building maintainable JavaScript applications. Here are 10 tips I've learned that will level up your TypeScript skills.</p><h2>1. Use 'unknown' Instead of 'any'</h2><p>When you don't know the type, prefer 'unknown' over 'any'. It's type-safe and forces you to narrow the type before using it.</p><h2>2. Leverage Discriminated Unions</h2><p>Create powerful type-safe patterns with discriminated unions...</p><h2>3. Template Literal Types</h2><p>TypeScript 4.1 introduced template literal types that enable amazing string manipulation at the type level...</p>",
+            "excerpt": "Discover 10 TypeScript tips and tricks that will improve your code quality and make you a more productive developer.",
+            "image_url": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
+            "published": true,
+            "published_at": "2024-01-20T14:30:00Z",
+            "views_count": 3200,
+            "likes_count": 189,
+            "reading_time": 6,
+            "categories": [
+                {
+                    "id": 9,
+                    "name": "Programming",
+                    "slug": "programming"
+                }
+            ],
+            "tags": [
+                "typescript",
+                "javascript",
+                "tips",
+                "best-practices"
+            ]
+        },
+        {
+            "id": 3,
+            "uuid": "blog-003-ai-development",
+            "title": "Building AI-Powered Applications: A Practical Guide",
+            "slug": "building-ai-powered-applications",
+            "content": "<p>AI is transforming how we build applications. In this guide, I'll walk you through integrating AI capabilities into your web applications using modern APIs and best practices.</p><h2>Choosing the Right AI Service</h2><p>There are many options available: OpenAI, Anthropic, Google AI, and more. The choice depends on your specific use case...</p><h2>Building a Chat Interface</h2><p>Let's build a simple chat interface with streaming responses...</p>",
+            "excerpt": "A practical guide to integrating AI capabilities into your web applications using OpenAI, Anthropic, and other modern AI services.",
+            "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+            "published": true,
+            "published_at": "2024-03-01T09:00:00Z",
+            "views_count": 1890,
+            "likes_count": 95,
+            "reading_time": 12,
+            "categories": [
+                {
+                    "id": 6,
+                    "name": "AI/ML",
+                    "slug": "ai-ml"
+                }
+            ],
+            "tags": [
+                "ai",
+                "openai",
+                "chatgpt",
+                "machine-learning",
+                "web-development"
+            ]
+        },
+        {
+            "id": 4,
+            "uuid": "blog-004-remote-work",
+            "title": "Thriving as a Remote Developer: Lessons from 4 Years of WFH",
+            "slug": "thriving-remote-developer",
+            "content": "<p>After four years of working remotely, I've learned what it takes to be productive, maintain work-life balance, and grow your career from home.</p><h2>Setting Up Your Workspace</h2><p>Your environment matters more than you think. Invest in a good chair, proper lighting, and a dedicated workspace...</p><h2>Communication is Everything</h2><p>Over-communicate. Document decisions. Be proactive about updates...</p>",
+            "excerpt": "Practical lessons and tips for thriving as a remote developer, from workspace setup to communication strategies.",
+            "image_url": "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&h=400&fit=crop",
+            "published": true,
+            "published_at": "2023-12-05T11:15:00Z",
+            "views_count": 4100,
+            "likes_count": 234,
+            "reading_time": 7,
+            "categories": [
+                {
+                    "id": 10,
+                    "name": "Career",
+                    "slug": "career"
+                }
+            ],
+            "tags": [
+                "remote-work",
+                "productivity",
+                "career",
+                "work-life-balance"
+            ]
+        }
+    ],
+    "social_links": [
+        {
+            "id": 1,
+            "platform": "github",
+            "url": "https://github.com/alexjohnson",
+            "icon": null,
+            "sort_order": 1
+        },
+        {
+            "id": 2,
+            "platform": "linkedin",
+            "url": "https://linkedin.com/in/alexjohnson",
+            "icon": null,
+            "sort_order": 2
+        },
+        {
+            "id": 3,
+            "platform": "twitter",
+            "url": "https://twitter.com/alexjohnson",
+            "icon": null,
+            "sort_order": 3
+        },
+        {
+            "id": 4,
+            "platform": "email",
+            "url": "mailto:alex@alexjohnson.dev",
+            "icon": null,
+            "sort_order": 4
+        },
+        {
+            "id": 5,
+            "platform": "website",
+            "url": "https://alexjohnson.dev",
+            "icon": null,
+            "sort_order": 5
+        }
+    ],
+    "reviews": [
+        {
+            "id": 1,
+            "uuid": "rev-001",
+            "reviewer_name": "Sarah Chen",
+            "reviewer_email": "sarah@example.com",
+            "rating": 5,
+            "comment": "Alex delivered an exceptional e-commerce platform that exceeded our expectations. His attention to detail and technical expertise made our project a huge success. Highly recommended!",
+            "approved": true,
+            "created_at": "2024-02-20T15:30:00Z"
+        },
+        {
+            "id": 2,
+            "uuid": "rev-002",
+            "reviewer_name": "Michael Roberts",
+            "reviewer_email": "michael@example.com",
+            "rating": 5,
+            "comment": "Working with Alex on our project management tool was a fantastic experience. He understood our requirements perfectly and delivered a polished, user-friendly product.",
+            "approved": true,
+            "created_at": "2024-01-15T10:00:00Z"
+        },
+        {
+            "id": 3,
+            "uuid": "rev-003",
+            "reviewer_name": "Emily Watson",
+            "reviewer_email": "emily@example.com",
+            "rating": 4,
+            "comment": "Great developer with excellent communication skills. Alex kept us updated throughout the project and was always responsive to our feedback. The final product was exactly what we needed.",
+            "approved": true,
+            "created_at": "2023-12-10T09:45:00Z"
+        },
+        {
+            "id": 4,
+            "uuid": "rev-004",
+            "reviewer_name": "David Kim",
+            "reviewer_email": "david@example.com",
+            "rating": 5,
+            "comment": "Alex's expertise in React and Node.js helped us build a scalable application that handles thousands of concurrent users. His code is clean, well-documented, and maintainable.",
+            "approved": true,
+            "created_at": "2023-11-25T14:20:00Z"
+        },
+        {
+            "id": 5,
+            "uuid": "rev-005",
+            "reviewer_name": "Jessica Miller",
+            "reviewer_email": "jessica@example.com",
+            "rating": 5,
+            "comment": "I've worked with many developers over the years, and Alex stands out for his professionalism and technical skills. He delivered our mobile app on time and within budget.",
+            "approved": true,
+            "created_at": "2023-10-30T11:15:00Z"
+        },
+        {
+            "id": 6,
+            "uuid": "rev-006",
+            "reviewer_name": "James Wilson",
+            "reviewer_email": "james@example.com",
+            "rating": 4,
+            "comment": "Excellent work on our AI content writing tool. Alex integrated complex AI APIs seamlessly and created an intuitive user interface. Would definitely work with him again.",
+            "approved": true,
+            "created_at": "2023-09-15T16:00:00Z"
+        }
+    ],
+    "settings": {
+        "portfolio_primary_color": "#3B82F6",
+        "portfolio_secondary_color": "#1E40AF",
+        "portfolio_accent_color": "#F59E0B",
+        "portfolio_background_color": "#FFFFFF",
+        "portfolio_text_color": "#1F2937",
+        "portfolio_link_color": "#3B82F6",
+        "portfolio_border_color": "#E5E7EB",
+        "portfolio_card_color": "#FFFFFF",
+        "portfolio_muted_color": "#6B7280",
+        "portfolio_heading_color": "#111827",
+        "portfolio_font_family": "Inter",
+        "portfolio_heading_font": "Inter",
+        "portfolio_body_font": "Inter",
+        "portfolio_font_size_base": "16px",
+        "portfolio_line_height": "1.6",
+        "portfolio_layout_type": "modern",
+        "portfolio_container_width": "wide",
+        "portfolio_border_radius": "8px",
+        "portfolio_spacing_unit": "1rem",
+        "portfolio_sections_order": [
+            "hero",
+            "about",
+            "experience",
+            "projects",
+            "skills",
+            "certificates",
+            "blogs",
+            "testimonials",
+            "contact"
+        ],
+        "portfolio_enabled_sections": {
+            "hero": true,
+            "about": true,
+            "experience": true,
+            "projects": true,
+            "skills": true,
+            "certificates": true,
+            "blogs": true,
+            "testimonials": true,
+            "contact": true
+        },
+        "portfolio_hero_layout": "centered",
+        "portfolio_hero_show_skills": true,
+        "portfolio_hero_greeting": "Hello, I'm",
+        "show_email_publicly": true,
+        "show_phone_publicly": false,
+        "enable_contact_form": true,
+        "portfolio_animations_enabled": true,
+        "portfolio_animation_style": "fade",
+        "portfolio_custom_css": null
+    }
+}

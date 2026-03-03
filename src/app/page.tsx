@@ -83,7 +83,7 @@ DEVFOLIO_USER_UUID=your-uuid`}
   // Map section names to components
   const sectionComponents: Record<string, React.ReactNode> = {
     hero: <Hero key="hero" user={user} skills={skills} settings={settings} />,
-    about: isSectionEnabled('about', settings) && <About key="about" user={user} />,
+    about: isSectionEnabled('about', settings) && <About key="about" user={user} socialLinks={social_links} />,
     projects: isSectionEnabled('projects', settings) && projects.length > 0 && (
       <Projects key="projects" projects={projects} />
     ),
@@ -117,6 +117,10 @@ DEVFOLIO_USER_UUID=your-uuid`}
 
       {/* Main Content */}
       <main>
+        {/* Debug indicator */}
+        <div className="fixed bottom-4 right-4 z-50 bg-primary text-primary-foreground px-3 py-1.5 text-xs rounded-full shadow-lg">
+          {projects.length} projects | {skills.length} skills
+        </div>
         {sectionsOrder.map((section) => sectionComponents[section])}
       </main>
 

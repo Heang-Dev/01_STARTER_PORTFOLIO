@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowDown, MapPin } from 'lucide-react';
-import { Button, Badge, Avatar, AvatarImage, AvatarFallback } from '@/components/ui';
+import { Button, Badge } from '@/components/ui';
 import type { User, Skill, PortfolioSettings } from '@/lib/types';
 import { getInitials } from '@/lib/utils';
 
@@ -35,14 +35,24 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <Avatar className="w-32 h-32 mx-auto ring-4 ring-primary/20">
+            <div className="w-32 h-32 mx-auto rounded-full ring-4 ring-primary/20 overflow-hidden bg-muted">
               {user.image_url ? (
-                <AvatarImage src={user.image_url} alt={user.name} />
-              ) : null}
-              <AvatarFallback className="text-3xl font-bold">
-                {getInitials(user.name)}
-              </AvatarFallback>
-            </Avatar>
+                <Image
+                  src={user.image_url}
+                  alt={user.name}
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-primary/10">
+                  <span className="text-3xl font-bold text-primary">
+                    {getInitials(user.name)}
+                  </span>
+                </div>
+              )}
+            </div>
           </motion.div>
 
           {/* Greeting & Name */}

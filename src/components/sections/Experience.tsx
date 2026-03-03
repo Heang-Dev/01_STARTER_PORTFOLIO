@@ -39,9 +39,9 @@ export function Experience({ experiences }: ExperienceProps) {
         </motion.div>
 
         <div className="max-w-3xl mx-auto">
-          <div className="relative">
+          <div className="relative pl-8 md:pl-0">
             {/* Timeline Line */}
-            <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-border transform md:-translate-x-1/2" />
+            <div className="absolute left-3 md:left-1/2 top-0 bottom-0 w-0.5 bg-border md:-translate-x-px" />
 
             {sortedExperiences.map((exp, index) => (
               <motion.div
@@ -50,46 +50,42 @@ export function Experience({ experiences }: ExperienceProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
-                  index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                }`}
+                className="relative mb-8 last:mb-0"
               >
                 {/* Timeline Dot */}
-                <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 mt-1.5 ring-4 ring-background">
-                  <div className="absolute inset-0 rounded-full bg-primary animate-ping opacity-20" />
+                <div className="absolute left-3 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-primary mt-6 z-10">
+                  {exp.current && (
+                    <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-50" />
+                  )}
                 </div>
 
-                {/* Content */}
-                <div
-                  className={`flex-1 ml-8 md:ml-0 ${
-                    index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'
-                  }`}
-                >
-                  <Card className={`hover:shadow-md transition-shadow ${index % 2 === 0 ? 'md:ml-auto' : ''} max-w-md`}>
+                {/* Card Container */}
+                <div className={`md:w-[calc(50%-2rem)] ${index % 2 === 0 ? 'md:ml-auto md:pl-8' : 'md:mr-auto md:pr-8'}`}>
+                  <Card className="overflow-hidden hover:shadow-md transition-shadow">
                     <CardContent className="p-6">
-                      {/* Company & Position */}
+                      {/* Header */}
                       <div className="flex items-start gap-4 mb-4">
-                        <div className="p-2 rounded-lg bg-primary/10 hidden md:block">
+                        <div className="p-2.5 rounded-lg bg-primary/10 shrink-0">
                           <Briefcase className="h-5 w-5 text-primary" />
                         </div>
-                        <div className={index % 2 === 0 ? 'md:text-right md:ml-auto' : ''}>
-                          <h3 className="text-lg font-semibold">{exp.position}</h3>
-                          <p className="text-primary font-medium">{exp.company}</p>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-lg font-semibold leading-tight">
+                            {exp.position}
+                          </h3>
+                          <p className="text-primary font-medium mt-0.5">
+                            {exp.company}
+                          </p>
                         </div>
                       </div>
 
                       {/* Date Range */}
-                      <div
-                        className={`flex items-center gap-2 text-sm text-muted-foreground mb-4 ${
-                          index % 2 === 0 ? 'md:justify-end' : ''
-                        }`}
-                      >
-                        <Calendar className="h-4 w-4" />
+                      <div className="flex items-center flex-wrap gap-2 text-sm text-muted-foreground mb-4">
+                        <Calendar className="h-4 w-4 shrink-0" />
                         <span>
                           {formatDateRange(exp.start_date, exp.end_date, exp.current)}
                         </span>
                         {exp.current && (
-                          <Badge variant="secondary" className="bg-green-500/10 text-green-600 dark:text-green-400 hover:bg-green-500/20">
+                          <Badge className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20">
                             Current
                           </Badge>
                         )}
@@ -98,18 +94,13 @@ export function Experience({ experiences }: ExperienceProps) {
                       {/* Description */}
                       {exp.description && (
                         <div
-                          className={`text-sm text-muted-foreground prose prose-sm dark:prose-invert ${
-                            index % 2 === 0 ? 'md:text-right' : ''
-                          }`}
+                          className="text-sm text-muted-foreground prose prose-sm dark:prose-invert max-w-none"
                           dangerouslySetInnerHTML={{ __html: exp.description }}
                         />
                       )}
                     </CardContent>
                   </Card>
                 </div>
-
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block flex-1" />
               </motion.div>
             ))}
           </div>
