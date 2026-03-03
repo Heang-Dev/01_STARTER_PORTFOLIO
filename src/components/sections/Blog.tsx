@@ -48,8 +48,7 @@ export function Blog({ blogs }: BlogProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link href={`/blog/${blog.slug}`}>
-                <Card className="group h-full flex flex-col">
+              <Card className="group h-full flex flex-col relative">
                   {/* Image */}
                   <div className="relative aspect-video overflow-hidden">
                     {blog.image_url ? (
@@ -124,13 +123,15 @@ export function Blog({ blogs }: BlogProps) {
                         </span>
                       )}
                     </div>
-                    <span className="text-sm text-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                    <Link
+                      href={`/blog/${blog.slug}`}
+                      className="text-sm text-primary group-hover:translate-x-1 transition-transform flex items-center gap-1 before:absolute before:inset-0 before:z-0"
+                    >
                       Read More
                       <ArrowRight className="h-4 w-4" />
-                    </span>
+                    </Link>
                   </div>
                 </Card>
-              </Link>
             </motion.div>
           ))}
         </div>

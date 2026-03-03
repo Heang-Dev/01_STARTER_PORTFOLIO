@@ -47,8 +47,7 @@ export function Projects({ projects }: ProjectsProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Link href={`/projects/${project.slug}`}>
-                <Card className="group h-full flex flex-col">
+              <Card className="group h-full flex flex-col relative">
                   {/* Image */}
                   <div className="relative aspect-video overflow-hidden">
                     {project.image_url ? (
@@ -129,8 +128,7 @@ export function Projects({ projects }: ProjectsProps) {
                         href={project.github_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
+                        className="relative z-10 p-2 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
                       >
                         <Github className="h-4 w-4" />
                       </a>
@@ -140,19 +138,20 @@ export function Projects({ projects }: ProjectsProps) {
                         href={project.live_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
+                        className="relative z-10 p-2 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
                       >
                         <ExternalLink className="h-4 w-4" />
                       </a>
                     )}
-                    <span className="ml-auto text-sm text-primary group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="ml-auto text-sm text-primary group-hover:translate-x-1 transition-transform flex items-center gap-1 before:absolute before:inset-0 before:z-0"
+                    >
                       View Details
                       <ArrowRight className="h-4 w-4" />
-                    </span>
+                    </Link>
                   </div>
                 </Card>
-              </Link>
             </motion.div>
           ))}
         </div>
