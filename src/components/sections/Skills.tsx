@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { Card, CardContent } from '@/components/ui';
 import type { Skill } from '@/lib/types';
 
 interface SkillsProps {
@@ -35,10 +36,10 @@ export function Skills({ skills }: SkillsProps) {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Skills & Technologies
           </h2>
-          <p className="text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Technologies and tools I work with
           </p>
         </motion.div>
@@ -66,57 +67,49 @@ export function Skills({ skills }: SkillsProps) {
                     whileHover={{ y: -5 }}
                     className="group"
                   >
-                    <div className="relative p-4 rounded-xl bg-foreground/[0.02] border border-foreground/10 hover:border-primary/30 hover:bg-primary/5 transition-all duration-300">
-                      {/* Icon */}
-                      <div className="flex justify-center mb-3">
-                        {skill.icon_url ? (
-                          <div className="relative w-10 h-10">
-                            <Image
-                              src={skill.icon_url}
-                              alt={skill.name}
-                              fill
-                              className="object-contain"
-                            />
-                          </div>
-                        ) : (
-                          <div
-                            className="w-10 h-10 rounded-lg flex items-center justify-center text-lg font-bold"
-                            style={{
-                              backgroundColor: skill.color_code
-                                ? `${skill.color_code}20`
-                                : 'rgb(var(--color-primary) / 0.1)',
-                              color: skill.color_code || 'rgb(var(--color-primary))',
-                            }}
-                          >
-                            {skill.name.charAt(0)}
+                    <Card className="hover:shadow-md transition-all duration-300 hover:border-primary/50">
+                      <CardContent className="p-4">
+                        {/* Icon */}
+                        <div className="flex justify-center mb-3">
+                          {skill.icon_url ? (
+                            <div className="relative w-10 h-10">
+                              <Image
+                                src={skill.icon_url}
+                                alt={skill.name}
+                                fill
+                                className="object-contain"
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              className="w-10 h-10 rounded-lg flex items-center justify-center text-lg font-bold bg-primary/10 text-primary"
+                            >
+                              {skill.name.charAt(0)}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Name */}
+                        <p className="text-sm font-medium text-center truncate">
+                          {skill.name}
+                        </p>
+
+                        {/* Proficiency Bar */}
+                        {skill.proficiency_level && (
+                          <div className="mt-2">
+                            <div className="h-1 bg-secondary rounded-full overflow-hidden">
+                              <motion.div
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${skill.proficiency_level}%` }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, delay: 0.2 }}
+                                className="h-full rounded-full bg-primary"
+                              />
+                            </div>
                           </div>
                         )}
-                      </div>
-
-                      {/* Name */}
-                      <p className="text-sm font-medium text-center truncate">
-                        {skill.name}
-                      </p>
-
-                      {/* Proficiency Bar */}
-                      {skill.proficiency_level && (
-                        <div className="mt-2">
-                          <div className="h-1 bg-foreground/10 rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${skill.proficiency_level}%` }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 1, delay: 0.2 }}
-                              className="h-full rounded-full"
-                              style={{
-                                backgroundColor:
-                                  skill.color_code || 'rgb(var(--color-primary))',
-                              }}
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                      </CardContent>
+                    </Card>
                   </motion.div>
                 ))}
               </div>

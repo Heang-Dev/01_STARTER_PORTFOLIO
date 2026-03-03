@@ -92,7 +92,7 @@ export default async function ProjectPage({ params }: Props) {
             {/* Header */}
             <div className="mb-8">
               {project.feature && (
-                <Badge variant="primary" className="mb-4">
+                <Badge variant="default" className="mb-4">
                   <Star className="h-3 w-3 mr-1" />
                   Featured Project
                 </Badge>
@@ -159,7 +159,6 @@ export default async function ProjectPage({ params }: Props) {
                     <Badge
                       key={skill.id}
                       variant="outline"
-                      size="md"
                       style={
                         skill.color_code
                           ? {
@@ -182,7 +181,7 @@ export default async function ProjectPage({ params }: Props) {
                 <h2 className="text-lg font-semibold mb-4">Categories</h2>
                 <div className="flex flex-wrap gap-2">
                   {project.categories.map((cat) => (
-                    <Badge key={cat.id} variant="secondary" size="md">
+                    <Badge key={cat.id} variant="secondary">
                       {cat.name}
                     </Badge>
                   ))}

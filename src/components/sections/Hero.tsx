@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowDown, MapPin } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button, Badge, Avatar, AvatarImage, AvatarFallback } from '@/components/ui';
 import type { User, Skill, PortfolioSettings } from '@/lib/types';
+import { getInitials } from '@/lib/utils';
 
 interface HeroProps {
   user: User;
@@ -34,23 +35,14 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            {user.image_url ? (
-              <div className="relative w-32 h-32 mx-auto rounded-full overflow-hidden ring-4 ring-primary/20">
-                <Image
-                  src={user.image_url}
-                  alt={user.name}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            ) : (
-              <div className="w-32 h-32 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="text-4xl font-bold text-primary">
-                  {user.name.charAt(0)}
-                </span>
-              </div>
-            )}
+            <Avatar className="w-32 h-32 mx-auto ring-4 ring-primary/20">
+              {user.image_url ? (
+                <AvatarImage src={user.image_url} alt={user.name} />
+              ) : null}
+              <AvatarFallback className="text-3xl font-bold">
+                {getInitials(user.name)}
+              </AvatarFallback>
+            </Avatar>
           </motion.div>
 
           {/* Greeting & Name */}
@@ -59,8 +51,8 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <p className="text-lg text-foreground/60 mb-2">{greeting}</p>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading mb-4">
+            <p className="text-lg text-muted-foreground mb-2">{greeting}</p>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4">
               {user.name}
             </h1>
           </motion.div>
@@ -71,7 +63,7 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center justify-center gap-2 text-foreground/60 mb-6"
+              className="flex items-center justify-center gap-2 text-muted-foreground mb-6"
             >
               <MapPin className="h-4 w-4" />
               <span>{user.location}</span>
@@ -84,7 +76,7 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-8"
+              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
             >
               {user.bio}
             </motion.p>
@@ -99,13 +91,13 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
               className="flex flex-wrap items-center justify-center gap-2 mb-10"
             >
               {topSkills.map((skill) => (
-                <span
+                <Badge
                   key={skill.id}
-                  className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary"
-                  style={skill.color_code ? { backgroundColor: `${skill.color_code}20`, color: skill.color_code } : {}}
+                  variant="secondary"
+                  className="px-3 py-1"
                 >
                   {skill.name}
-                </span>
+                </Badge>
               ))}
             </motion.div>
           )}
@@ -117,7 +109,10 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button size="lg" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button
+              size="lg"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Get In Touch
             </Button>
             <Button
@@ -140,9 +135,9 @@ export function Hero({ user, skills = [], settings }: HeroProps) {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="p-2 rounded-full border border-foreground/20"
+            className="p-2 rounded-full border border-border"
           >
-            <ArrowDown className="h-5 w-5 text-foreground/40" />
+            <ArrowDown className="h-5 w-5 text-muted-foreground" />
           </motion.div>
         </motion.div>
       </div>

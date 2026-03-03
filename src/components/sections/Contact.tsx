@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button, Input, Textarea, Label, Card, CardContent } from '@/components/ui';
 import type { User, PortfolioSettings } from '@/lib/types';
 import { submitContact } from '@/lib/devfolio';
 
@@ -46,7 +46,7 @@ export function Contact({ user, settings }: ContactProps) {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-foreground/[0.02]">
+    <section id="contact" className="py-20 md:py-32 bg-muted/50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,10 +55,10 @@ export function Contact({ user, settings }: ContactProps) {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Get In Touch
           </h2>
-          <p className="text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Have a question or want to work together? Feel free to reach out!
           </p>
         </motion.div>
@@ -74,52 +74,64 @@ export function Contact({ user, settings }: ContactProps) {
           >
             <div>
               <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
-              <p className="text-foreground/60">
+              <p className="text-muted-foreground">
                 I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
               </p>
             </div>
 
             <div className="space-y-4">
               {showEmail && user.email && (
-                <a
-                  href={`mailto:${user.email}`}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-background border border-foreground/10 hover:border-primary/30 transition-colors group"
-                >
-                  <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Mail className="h-5 w-5 text-primary group-hover:text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-foreground/60">Email</p>
-                    <p className="font-medium">{user.email}</p>
-                  </div>
-                </a>
+                <Card className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <a
+                      href={`mailto:${user.email}`}
+                      className="flex items-center gap-4 group"
+                    >
+                      <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary transition-colors">
+                        <Mail className="h-5 w-5 text-primary group-hover:text-primary-foreground" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Email</p>
+                        <p className="font-medium">{user.email}</p>
+                      </div>
+                    </a>
+                  </CardContent>
+                </Card>
               )}
 
               {showPhone && user.phone && (
-                <a
-                  href={`tel:${user.phone}`}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-background border border-foreground/10 hover:border-primary/30 transition-colors group"
-                >
-                  <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Phone className="h-5 w-5 text-primary group-hover:text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-foreground/60">Phone</p>
-                    <p className="font-medium">{user.phone}</p>
-                  </div>
-                </a>
+                <Card className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <a
+                      href={`tel:${user.phone}`}
+                      className="flex items-center gap-4 group"
+                    >
+                      <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary transition-colors">
+                        <Phone className="h-5 w-5 text-primary group-hover:text-primary-foreground" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Phone</p>
+                        <p className="font-medium">{user.phone}</p>
+                      </div>
+                    </a>
+                  </CardContent>
+                </Card>
               )}
 
               {user.location && (
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-background border border-foreground/10">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <MapPin className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-foreground/60">Location</p>
-                    <p className="font-medium">{user.location}</p>
-                  </div>
-                </div>
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-lg bg-primary/10">
+                        <MapPin className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Location</p>
+                        <p className="font-medium">{user.location}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               )}
             </div>
           </motion.div>
@@ -132,105 +144,98 @@ export function Contact({ user, settings }: ContactProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg bg-background border border-foreground/10 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg bg-background border border-foreground/10 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                </div>
+              <Card>
+                <CardContent className="p-6">
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Name</Label>
+                        <Input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          required
+                          placeholder="Your name"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                    </div>
 
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg bg-background border border-foreground/10 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors"
-                    placeholder="What is this about?"
-                  />
-                </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="subject">Subject</Label>
+                      <Input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        placeholder="What is this about?"
+                      />
+                    </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-lg bg-background border border-foreground/10 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors resize-none"
-                    placeholder="Your message..."
-                  />
-                </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Message</Label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows={5}
+                        placeholder="Your message..."
+                        className="resize-none"
+                      />
+                    </div>
 
-                {/* Status Messages */}
-                {status === 'success' && (
-                  <div className="flex items-center gap-2 p-4 rounded-lg bg-green-500/10 text-green-500">
-                    <CheckCircle className="h-5 w-5" />
-                    <p>Message sent successfully! I&apos;ll get back to you soon.</p>
-                  </div>
-                )}
+                    {/* Status Messages */}
+                    {status === 'success' && (
+                      <div className="flex items-center gap-2 p-4 rounded-lg bg-green-500/10 text-green-600 dark:text-green-400">
+                        <CheckCircle className="h-5 w-5" />
+                        <p>Message sent successfully! I&apos;ll get back to you soon.</p>
+                      </div>
+                    )}
 
-                {status === 'error' && (
-                  <div className="flex items-center gap-2 p-4 rounded-lg bg-red-500/10 text-red-500">
-                    <AlertCircle className="h-5 w-5" />
-                    <p>{errorMessage}</p>
-                  </div>
-                )}
+                    {status === 'error' && (
+                      <div className="flex items-center gap-2 p-4 rounded-lg bg-destructive/10 text-destructive">
+                        <AlertCircle className="h-5 w-5" />
+                        <p>{errorMessage}</p>
+                      </div>
+                    )}
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full"
-                  disabled={status === 'loading'}
-                >
-                  {status === 'loading' ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="mr-2 h-5 w-5" />
-                      Send Message
-                    </>
-                  )}
-                </Button>
-              </form>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full"
+                      disabled={status === 'loading'}
+                    >
+                      {status === 'loading' ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-5 w-5" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
             </motion.div>
           )}
         </div>

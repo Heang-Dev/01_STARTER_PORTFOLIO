@@ -103,7 +103,7 @@ export default async function BlogPostPage({ params }: Props) {
               {blog.categories && blog.categories.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-4">
                   {blog.categories.map((cat) => (
-                    <Badge key={cat.id} variant="primary">
+                    <Badge key={cat.id} variant="default">
                       {cat.name}
                     </Badge>
                   ))}

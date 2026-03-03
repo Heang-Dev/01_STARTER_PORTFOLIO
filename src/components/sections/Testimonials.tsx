@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
-import { Card } from '@/components/ui';
+import { Card, CardContent, Avatar, AvatarFallback } from '@/components/ui';
 import type { Review } from '@/lib/types';
 import { getInitials } from '@/lib/utils';
 
@@ -29,10 +29,10 @@ export function Testimonials({ reviews }: TestimonialsProps) {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             What People Say
           </h2>
-          <p className="text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Feedback and reviews from clients and collaborators
           </p>
         </motion.div>
@@ -46,45 +46,47 @@ export function Testimonials({ reviews }: TestimonialsProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full p-6">
-                {/* Quote Icon */}
-                <div className="mb-4">
-                  <Quote className="h-8 w-8 text-primary/20" />
-                </div>
-
-                {/* Rating */}
-                <div className="flex items-center gap-1 mb-4">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-4 w-4 ${
-                        i < review.rating
-                          ? 'fill-yellow-400 text-yellow-400'
-                          : 'text-foreground/20'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* Comment */}
-                {review.comment && (
-                  <p className="text-foreground/70 mb-6 line-clamp-4">
-                    &quot;{review.comment}&quot;
-                  </p>
-                )}
-
-                {/* Author */}
-                <div className="flex items-center gap-3 mt-auto">
-                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-sm font-semibold text-primary">
-                      {getInitials(review.reviewer_name)}
-                    </span>
+              <Card className="h-full hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 flex flex-col h-full">
+                  {/* Quote Icon */}
+                  <div className="mb-4">
+                    <Quote className="h-8 w-8 text-primary/20" />
                   </div>
-                  <div>
-                    <p className="font-medium">{review.reviewer_name}</p>
-                    <p className="text-xs text-foreground/50">Verified Review</p>
+
+                  {/* Rating */}
+                  <div className="flex items-center gap-1 mb-4">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          i < review.rating
+                            ? 'fill-yellow-400 text-yellow-400'
+                            : 'text-muted'
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
+
+                  {/* Comment */}
+                  {review.comment && (
+                    <p className="text-muted-foreground mb-6 line-clamp-4 flex-1">
+                      &quot;{review.comment}&quot;
+                    </p>
+                  )}
+
+                  {/* Author */}
+                  <div className="flex items-center gap-3 mt-auto pt-4 border-t">
+                    <Avatar>
+                      <AvatarFallback className="bg-primary/10 text-primary">
+                        {getInitials(review.reviewer_name)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-medium">{review.reviewer_name}</p>
+                      <p className="text-xs text-muted-foreground">Verified Review</p>
+                    </div>
+                  </div>
+                </CardContent>
               </Card>
             </motion.div>
           ))}

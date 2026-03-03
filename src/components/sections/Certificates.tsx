@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Award, ExternalLink, Calendar } from 'lucide-react';
-import { Card, Badge } from '@/components/ui';
+import { Card, CardContent, CardFooter, Badge, Button } from '@/components/ui';
 import type { Certificate } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 
@@ -26,10 +26,10 @@ export function Certificates({ certificates }: CertificatesProps) {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Certifications
           </h2>
-          <p className="text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Professional certifications and credentials
           </p>
         </motion.div>
@@ -46,10 +46,10 @@ export function Certificates({ certificates }: CertificatesProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="h-full flex flex-col">
+                <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
                   {/* Image */}
                   {cert.image_url && (
-                    <div className="relative aspect-[3/2] overflow-hidden bg-foreground/5">
+                    <div className="relative aspect-[3/2] overflow-hidden bg-muted">
                       <Image
                         src={cert.image_url}
                         alt={cert.title}
@@ -59,58 +59,58 @@ export function Certificates({ certificates }: CertificatesProps) {
                     </div>
                   )}
 
-                  {/* Content */}
-                  <div className="flex-1 p-6">
+                  <CardContent className="flex-1 pt-6">
                     <div className="flex items-start gap-3 mb-4">
                       <div className="p-2 rounded-lg bg-primary/10 shrink-0">
                         <Award className="h-5 w-5 text-primary" />
                       </div>
                       <div>
                         <h3 className="font-semibold">{cert.title}</h3>
-                        <p className="text-sm text-foreground/60">{cert.issuer}</p>
+                        <p className="text-sm text-muted-foreground">{cert.issuer}</p>
                       </div>
                     </div>
 
                     {/* Dates */}
                     <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2 text-foreground/60">
+                      <div className="flex items-center gap-2 text-muted-foreground">
                         <Calendar className="h-4 w-4" />
                         <span>Earned: {formatDate(cert.earned_date)}</span>
                       </div>
                       {cert.expiry_date && (
                         <div className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-foreground/60" />
+                          <Calendar className="h-4 w-4 text-muted-foreground" />
                           <span
                             className={
-                              isExpired ? 'text-red-500' : 'text-foreground/60'
+                              isExpired ? 'text-destructive' : 'text-muted-foreground'
                             }
                           >
                             {isExpired ? 'Expired' : 'Expires'}:{' '}
                             {formatDate(cert.expiry_date)}
                           </span>
                           {isExpired && (
-                            <Badge variant="outline" className="text-xs text-red-500">
+                            <Badge variant="destructive" className="text-xs">
                               Expired
                             </Badge>
                           )}
                         </div>
                       )}
                     </div>
-                  </div>
+                  </CardContent>
 
                   {/* Footer */}
                   {cert.credential_url && (
-                    <div className="px-6 pb-6">
-                      <a
-                        href={cert.credential_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                        Verify Credential
-                      </a>
-                    </div>
+                    <CardFooter>
+                      <Button variant="link" className="p-0 h-auto" asChild>
+                        <a
+                          href={cert.credential_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <ExternalLink className="h-4 w-4 mr-2" />
+                          Verify Credential
+                        </a>
+                      </Button>
+                    </CardFooter>
                   )}
                 </Card>
               </motion.div>

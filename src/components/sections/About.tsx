@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Calendar, MapPin, Briefcase, Mail } from 'lucide-react';
+import { Card, CardContent, Separator } from '@/components/ui';
 import type { User } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 
@@ -26,10 +27,10 @@ export function About({ user }: AboutProps) {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             About Me
           </h2>
-          <p className="text-foreground/60 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Get to know more about who I am and what I do
           </p>
         </motion.div>
@@ -61,7 +62,7 @@ export function About({ user }: AboutProps) {
                 ))}
               </div>
             ) : user.image_url ? (
-              <div className="relative aspect-square max-w-md mx-auto rounded-2xl overflow-hidden">
+              <div className="relative aspect-square max-w-md mx-auto rounded-2xl overflow-hidden shadow-lg">
                 <Image
                   src={user.image_url}
                   alt={user.name}
@@ -70,7 +71,7 @@ export function About({ user }: AboutProps) {
                 />
               </div>
             ) : (
-              <div className="aspect-square max-w-md mx-auto rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+              <div className="aspect-square max-w-md mx-auto rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
                 <span className="text-8xl font-bold text-primary/50">
                   {user.name.charAt(0)}
                 </span>
@@ -84,58 +85,63 @@ export function About({ user }: AboutProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="space-y-6"
           >
-            <h3 className="text-2xl font-bold font-heading">{user.name}</h3>
+            <Card>
+              <CardContent className="p-6 space-y-6">
+                <h3 className="text-2xl font-bold">{user.name}</h3>
 
-            {user.bio && (
-              <div
-                className="text-foreground/70 prose prose-sm dark:prose-invert"
-                dangerouslySetInnerHTML={{ __html: user.bio }}
-              />
-            )}
+                {user.bio && (
+                  <div
+                    className="text-muted-foreground prose prose-sm dark:prose-invert"
+                    dangerouslySetInnerHTML={{ __html: user.bio }}
+                  />
+                )}
 
-            {/* Info Items */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-              {user.location && (
-                <div className="flex items-center gap-3 text-foreground/70">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <MapPin className="h-5 w-5 text-primary" />
+                {/* Info Items */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                  {user.location && (
+                    <div className="flex items-center gap-3 text-muted-foreground">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <MapPin className="h-5 w-5 text-primary" />
+                      </div>
+                      <span>{user.location}</span>
+                    </div>
+                  )}
+                  {user.email && (
+                    <div className="flex items-center gap-3 text-muted-foreground">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <Mail className="h-5 w-5 text-primary" />
+                      </div>
+                      <span className="truncate">{user.email}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Calendar className="h-5 w-5 text-primary" />
+                    </div>
+                    <span>Joined {formatDate(user.created_at, { year: 'numeric', month: 'short' })}</span>
                   </div>
-                  <span>{user.location}</span>
-                </div>
-              )}
-              {user.email && (
-                <div className="flex items-center gap-3 text-foreground/70">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <Mail className="h-5 w-5 text-primary" />
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <Briefcase className="h-5 w-5 text-primary" />
+                    </div>
+                    <span>{user.account_type?.charAt(0).toUpperCase() + user.account_type?.slice(1)} Account</span>
                   </div>
-                  <span className="truncate">{user.email}</span>
                 </div>
-              )}
-              <div className="flex items-center gap-3 text-foreground/70">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Calendar className="h-5 w-5 text-primary" />
-                </div>
-                <span>Joined {formatDate(user.created_at, { year: 'numeric', month: 'short' })}</span>
-              </div>
-              <div className="flex items-center gap-3 text-foreground/70">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Briefcase className="h-5 w-5 text-primary" />
-                </div>
-                <span>{user.account_type?.charAt(0).toUpperCase() + user.account_type?.slice(1)} Account</span>
-              </div>
-            </div>
 
-            {/* Stats */}
-            <div className="flex gap-8 pt-6 border-t border-foreground/10">
-              {stats.map((stat, index) => (
-                <div key={index}>
-                  <p className="text-2xl font-bold text-primary">{stat.value}</p>
-                  <p className="text-sm text-foreground/60">{stat.label}</p>
+                <Separator />
+
+                {/* Stats */}
+                <div className="flex gap-8">
+                  {stats.map((stat, index) => (
+                    <div key={index}>
+                      <p className="text-2xl font-bold text-primary">{stat.value}</p>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </CardContent>
+            </Card>
           </motion.div>
         </div>
       </div>

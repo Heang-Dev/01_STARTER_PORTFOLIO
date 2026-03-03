@@ -82,7 +82,7 @@ export default async function BlogPage() {
                       {blog.categories && blog.categories.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-3">
                           {blog.categories.slice(0, 2).map((cat) => (
-                            <Badge key={cat.id} variant="primary" className="text-xs">
+                            <Badge key={cat.id} variant="default" className="text-xs">
                               {cat.name}
                             </Badge>
                           ))}

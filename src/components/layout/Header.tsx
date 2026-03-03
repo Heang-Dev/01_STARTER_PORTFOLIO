@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import { Menu, X, Sun, Moon, Github, Linkedin, Twitter } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button, Separator } from '@/components/ui';
 import type { User, SocialLink } from '@/lib/types';
 
 interface HeaderProps {
@@ -55,7 +56,7 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isScrolled
-          ? 'bg-background/80 backdrop-blur-lg shadow-sm'
+          ? 'bg-background/80 backdrop-blur-lg border-b'
           : 'bg-transparent'
       )}
     >
@@ -64,7 +65,7 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-bold font-heading text-foreground hover:text-primary transition-colors"
+            className="text-xl font-bold tracking-tight hover:text-primary transition-colors"
           >
             {user.name}
           </Link>
@@ -76,7 +77,7 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-sm font-medium text-foreground/70 hover:text-primary transition-colors"
+                    className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {item.label}
                   </a>
@@ -85,26 +86,32 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
             </ul>
 
             {/* Social Links */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1">
               {socialLinks.slice(0, 3).map((link) => (
-                <a
+                <Button
                   key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/70 hover:text-primary transition-colors"
-                  aria-label={link.platform}
+                  variant="ghost"
+                  size="icon"
+                  asChild
                 >
-                  {getSocialIcon(link.platform)}
-                </a>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.platform}
+                  >
+                    {getSocialIcon(link.platform)}
+                  </a>
+                </Button>
               ))}
             </div>
 
             {/* Theme Toggle */}
             {mounted && (
-              <button
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-lg bg-foreground/5 hover:bg-foreground/10 transition-colors"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
@@ -112,14 +119,16 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
                 ) : (
                   <Moon className="h-5 w-5" />
                 )}
-              </button>
+              </Button>
             )}
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -127,7 +136,7 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
             ) : (
               <Menu className="h-6 w-6" />
             )}
-          </button>
+          </Button>
         </nav>
 
         {/* Mobile Menu */}
@@ -136,44 +145,53 @@ export function Header({ user, socialLinks = [] }: HeaderProps) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden py-4 border-t border-foreground/10"
+            className="md:hidden py-4"
           >
-            <ul className="flex flex-col gap-4">
+            <Separator className="mb-4" />
+            <ul className="flex flex-col gap-2">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-2 text-foreground/70 hover:text-primary transition-colors"
+                    className="block py-2 px-3 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
                   >
                     {item.label}
                   </a>
                 </li>
               ))}
             </ul>
-            <div className="flex items-center gap-4 mt-4 pt-4 border-t border-foreground/10">
+            <Separator className="my-4" />
+            <div className="flex items-center gap-2">
               {socialLinks.slice(0, 3).map((link) => (
-                <a
+                <Button
                   key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/70 hover:text-primary transition-colors"
+                  variant="ghost"
+                  size="icon"
+                  asChild
                 >
-                  {getSocialIcon(link.platform)}
-                </a>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {getSocialIcon(link.platform)}
+                  </a>
+                </Button>
               ))}
               {mounted && (
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="ml-auto"
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="ml-auto p-2 rounded-lg bg-foreground/5"
                 >
                   {theme === 'dark' ? (
                     <Sun className="h-5 w-5" />
                   ) : (
                     <Moon className="h-5 w-5" />
                   )}
-                </button>
+                </Button>
               )}
             </div>
           </motion.div>

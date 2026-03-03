@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Github, Linkedin, Twitter, Mail, Heart } from 'lucide-react';
+import { Button, Separator } from '@/components/ui';
 import type { User, SocialLink } from '@/lib/types';
 
 interface FooterProps {
@@ -26,15 +27,15 @@ export function Footer({ user, socialLinks = [] }: FooterProps) {
   };
 
   return (
-    <footer className="bg-foreground/5 border-t border-foreground/10">
+    <footer className="border-t bg-muted/50">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <Link href="/" className="text-xl font-bold font-heading">
+            <Link href="/" className="text-xl font-bold tracking-tight">
               {user.name}
             </Link>
-            <p className="mt-2 text-sm text-foreground/60">
+            <p className="mt-2 text-sm text-muted-foreground">
               {user.bio ? user.bio.slice(0, 100) + '...' : 'Building amazing things with code.'}
             </p>
           </div>
@@ -44,22 +45,22 @@ export function Footer({ user, socialLinks = [] }: FooterProps) {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#about" className="text-sm text-foreground/60 hover:text-primary transition-colors">
+                <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   About
                 </a>
               </li>
               <li>
-                <a href="#projects" className="text-sm text-foreground/60 hover:text-primary transition-colors">
+                <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Projects
                 </a>
               </li>
               <li>
-                <a href="#blog" className="text-sm text-foreground/60 hover:text-primary transition-colors">
+                <a href="#blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-sm text-foreground/60 hover:text-primary transition-colors">
+                <a href="#contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   Contact
                 </a>
               </li>
@@ -69,24 +70,29 @@ export function Footer({ user, socialLinks = [] }: FooterProps) {
           {/* Social Links */}
           <div>
             <h4 className="font-semibold mb-4">Connect</h4>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {socialLinks.map((link) => (
-                <a
+                <Button
                   key={link.id}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-foreground/5 hover:bg-primary hover:text-white transition-colors"
-                  aria-label={link.platform}
+                  variant="ghost"
+                  size="icon"
+                  asChild
                 >
-                  {getSocialIcon(link.platform)}
-                </a>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.platform}
+                  >
+                    {getSocialIcon(link.platform)}
+                  </a>
+                </Button>
               ))}
             </div>
             {user.email && (
               <a
                 href={`mailto:${user.email}`}
-                className="mt-4 inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-primary transition-colors"
+                className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="h-4 w-4" />
                 {user.email}
@@ -95,13 +101,15 @@ export function Footer({ user, socialLinks = [] }: FooterProps) {
           </div>
         </div>
 
+        <Separator className="my-8" />
+
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-foreground/60">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-muted-foreground">
             &copy; {currentYear} {user.name}. All rights reserved.
           </p>
-          <p className="text-sm text-foreground/60 flex items-center gap-1">
-            Built with <Heart className="h-4 w-4 text-red-500" /> using{' '}
+          <p className="text-sm text-muted-foreground flex items-center gap-1">
+            Built with <Heart className="h-4 w-4 text-red-500 fill-red-500" /> using{' '}
             <a
               href="https://devfolio.com"
               target="_blank"

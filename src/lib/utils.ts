@@ -40,49 +40,6 @@ export function formatDateRange(startDate: string, endDate?: string, current?: b
 }
 
 /**
- * Convert hex color to RGB values string
- */
-function hexToRgb(hex?: string): string {
-  if (!hex) return '59 130 246'; // Default blue
-
-  // Remove # if present
-  hex = hex.replace('#', '');
-
-  // Parse hex values
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-
-  return `${r} ${g} ${b}`;
-}
-
-/**
- * Generate CSS variables from portfolio settings (flat structure)
- */
-export function generateThemeStyles(settings?: PortfolioSettings): string {
-  if (!settings) {
-    // Return empty - defaults are in globals.css
-    return '';
-  }
-
-  return `
-    :root {
-      --color-primary: ${hexToRgb(settings.portfolio_primary_color)};
-      --color-secondary: ${hexToRgb(settings.portfolio_secondary_color)};
-      --color-accent: ${hexToRgb(settings.portfolio_accent_color)};
-      --color-background: ${hexToRgb(settings.portfolio_background_color)};
-      --color-foreground: ${hexToRgb(settings.portfolio_text_color)};
-      --font-body: ${settings.portfolio_font_family || 'Inter'}, system-ui, sans-serif;
-      --font-heading: ${settings.portfolio_heading_font || 'Inter'}, system-ui, sans-serif;
-    }
-    .dark {
-      --color-background: 15 23 42;
-      --color-foreground: 241 245 249;
-    }
-  `;
-}
-
-/**
  * Truncate text to a specific length
  */
 export function truncate(text: string, length: number): string {
@@ -149,4 +106,14 @@ export function getSectionsOrder(settings?: PortfolioSettings): string[] {
   ];
 
   return settings?.portfolio_sections_order || defaultOrder;
+}
+
+/**
+ * Generate CSS variables from portfolio settings (flat structure)
+ * Note: With shadcn/ui, we use HSL colors, so this is simplified
+ */
+export function generateThemeStyles(settings?: PortfolioSettings): string {
+  // Settings-based theme customization is handled via globals.css
+  // This function is kept for API compatibility
+  return '';
 }
